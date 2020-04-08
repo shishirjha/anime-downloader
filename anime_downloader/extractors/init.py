@@ -20,6 +20,12 @@ ALL_EXTRACTORS = [
         'class': 'StreamMoe',
     },
     {
+        'sitename': 'streamango',
+        'modulename': 'streamango',
+        'regex': 'streamango',
+        'class': 'Streamango',
+    },
+    {
         'sitename': 'mp4upload',
         'modulename': 'mp4upload',
         'regex': 'mp4upload',
@@ -30,7 +36,43 @@ ALL_EXTRACTORS = [
         'modulename': 'kwik',
         'regex': 'kwik',
         'class': 'Kwik'
-    }
+    },
+    {
+        'sitename': 'trollvid',
+        'modulename': 'trollvid',
+        'regex': 'trollvid',
+        'class': 'Trollvid'
+    },
+    {
+        'sitename': 'mp4sh',
+        'modulename': 'mp4sh',
+        'regex': 'mp4sh',
+        'class': 'MP4Sh'
+    },
+    {
+        'sitename': 'yourupload',
+        'modulename': 'yourupload',
+        'regex': 'yourupload',
+        'class': 'Yourupload'
+    },
+    {
+        'sitename': 'vidstream',
+        'modulename': 'vidstream',
+        'regex': 'vidstream',
+        'class': 'VidStream'
+    },
+    {
+        'sitename': 'haloani',
+        'modulename': 'haloani',
+        'regex': 'haloani',
+        'class': 'Haloani'
+    },
+    {
+        'sitename': 'gcloud',
+        'modulename': 'gcloud',
+        'regex': 'gcloud',
+        'class': 'Gcloud'
+    },
 ]
 
 

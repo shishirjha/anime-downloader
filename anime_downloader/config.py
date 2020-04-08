@@ -12,18 +12,64 @@ DEFAULT_CONFIG = {
         'player': None,
         'skip_download': False,
         'download_dir': '.',
-        'quality': '720p',
+        'quality': '1080p',
+      	'chunk_size': '10',
         'fallback_qualities': ['720p', '480p', '360p'],
         'force_download': False,
-        'log_level': 'INFO',
         'file_format': '{anime_title}/{anime_title}_{ep_no}',
-        'provider': '9anime',
+        'provider': 'twist.moe',
         'external_downloader': '',
     },
     'watch': {
-        'quality': '720p',
+        'quality': '1080p',
+        'fallback_qualities': ['720p', '480p', '360p'],
         'log_level': 'INFO',
-        'provider': '9anime',
+        'provider': 'twist.moe',
+    },
+    "siteconfig": {
+        "nineanime": {
+            "server": "mp4upload",
+        },
+        'anistream.xyz': {
+            "version": "subbed",
+        },
+        'animeflv': {
+            "version": "subbed",
+            "server": "natsuki",
+        },
+        'gogoanime': {
+            "server": "cdn",
+        },
+        'animerush':{
+            "server": "Mp4uploadHD Video",
+            "fallback_servers": ["MP4Upload", "Mp4upload Video", "Youruploads Video"]
+        },
+        'kickass': {
+            "server": "A-KICKASSANIME",
+            "fallback_servers": ["ORIGINAL-QUALITY-V2","HTML5-HQ","HTML5","A-KICKASSANIME","BETAPLAYER","KICKASSANIME","DEVSTREAM"],
+            "ext_fallback_servers": ["Mp4Upload","Vidcdn","Vidstreaming"],
+        },
+        'animesimple': {
+            "version": "subbed",
+            "server": "trollvid",
+        },
+        'dreamanime': {
+            "version": "subbed",
+            "server": "trollvid",
+        },
+        'ryuanime': {
+            "version": "subbed",
+            "server": "trollvid",
+        },
+        'watchmovie': {
+            "server": "gcloud",
+            "fallback_servers": ["fembed","yourupload","mp4upload"],
+        },
+        'animeflix': {
+            "server": "AUEngine",
+            "fallback_servers": ["FastStream"],
+            "version": "sub",
+        },
     }
 }
 
@@ -44,14 +90,22 @@ class _Config:
         else:
             self._CONFIG = self._read_config()
 
-            def update(gkey):
-                for key, val in DEFAULT_CONFIG[gkey].items():
-                    if key not in self._CONFIG[gkey].keys():
-                        self._CONFIG[gkey][key] = val
+            def update(gkey, to_be, from_dict):
+                if gkey not in to_be:
+                    to_be[gkey] = {}
+                for key, val in from_dict[gkey].items():
+                    if key not in to_be[gkey].keys():
+                        to_be[gkey][key] = val
+                    elif isinstance(from_dict[gkey][key], dict):
+                        update(key, to_be[gkey], from_dict[gkey])
 
-            for key in ['dl', 'watch']:
-                update(key)
+            for key in DEFAULT_CONFIG.keys():
+                update(key, self._CONFIG, DEFAULT_CONFIG)
             self.write()
+            # Expand environment variables in download_dir (#222)
+            download_dir = self._CONFIG['dl']['download_dir']
+            download_dir = os.path.expandvars(download_dir)
+            self._CONFIG['dl']['download_dir'] = download_dir
 
     @property
     def CONTEXT_SETTINGS(self):
