@@ -43,9 +43,7 @@ Yeah. Me too! That's why this tool exists.
 - Configurable using `config.json`. See [documentation](https://anime-downlader.readthedocs.io/en/latest/usage/config.html).
 
 ## Supported Sites
-
-- twist.moe
-- Animepahe
+**Details about the sites can be found in [FAQ](https://github.com/vn-ki/anime-downloader/wiki/FAQ)**
 - Anistream
 - Animeflix
 - Animefreak
@@ -62,8 +60,19 @@ Yeah. Me too! That's why this tool exists.
 - Animesimple
 - Animerush
 - Watchmovie
-- Kissanime - requires Node.js
-- Kisscartoon - requires Node.js
+- Nyaa.si
+- Animedaisuki
+- Justdubs
+- Animevibe
+- Yify
+- Kissanimefree
+- Vostfree
+- Voiranime
+- Vidstream
+- Animepahe - requires Node.js
+- twist.moe - requires Node.js
+- Kissanime - requires Selenium
+- Kisscartoon - requires Selenium
 
 ## Installation
 

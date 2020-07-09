@@ -2,7 +2,7 @@
 from anime_downloader.sites.anime import Anime, AnimeEpisode, SearchResult
 from anime_downloader.sites import helpers
 from difflib import get_close_matches
-import base64
+import re
 
 class EraiRaws(Anime, sitename='erai-raws'):
     sitename='erai-raws'
@@ -11,18 +11,16 @@ class EraiRaws(Anime, sitename='erai-raws'):
     #Bypass DDosGuard
     def bypass(self):
         host = "https://erai-raws.info"
-        url = "https://erai-raws.info/anime-list/"
-        u = base64.b64encode(url.encode('utf-8'))
-        h = base64.b64encode(host.encode('utf-8'))
-        bypass_link = helpers.post('https://ddgu.ddos-guard.net/ddgu/', data = {'u':u, 'h':h, 'p':''}, headers = {'Referer': url}, allow_redirects = False).headers["Location"]
-        helpers.get(bypass_link, allow_redirects = False)
+        resp = helpers.get("https://check.ddos-guard.net/check.js").text
+        ddosBypassPath = re.search("'(.*?)'", resp).groups()[0]
+        helpers.get(host + ddosBypassPath)
 
     def parse(self, rows, url):
         episodes = []
 
-        if self.quality == self.QUALITIES[0]:
+        if self.quality == self.QUALITIES[0] and len(rows) > 1:
             rows = rows[::2]
-        else:
+        elif len(rows) > 1:
             rows = rows[1::2]
 
         for row in rows:
@@ -37,7 +35,18 @@ class EraiRaws(Anime, sitename='erai-raws'):
                 [episodes.append(url + x.parent.get("href")) for x in folder.find("ul", {"id":"directory-listing"}).find_all("div", {"class":"row"})]
             else:
                 episodes.append(url + row.parent.get("href"))
-        return episodes[1:]
+
+        episodes = episodes[1:]
+
+        if len(rows) == 1:
+            if rows[0].parent.get("href")[-3:] != "mkv":
+                url = f"{url}index.php" if url[:-1] == "/" else f"{url}/index.php"
+                folder = helpers.soupify(helpers.get(url + rows[0].parent.get("href")))
+                episodes = [url + x.parent.get("href") for x in folder.find("ul", {"id":"directory-listing"}).find_all("div", {"class":"row"})]
+            else:
+                episodes = [url + rows[0].parent["href"]]
+
+        return episodes
 
     @classmethod
     def search(cls, query):

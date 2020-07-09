@@ -19,6 +19,10 @@ DEFAULT_CONFIG = {
         'file_format': '{anime_title}/{anime_title}_{ep_no}',
         'provider': 'twist.moe',
         'external_downloader': '',
+        'aria2c_for_torrents': False,
+        'selescrape_browser': None,
+        'selescrape_browser_executable_path' : None,
+        'selescrape_driver_binary_path' : None,
     },
     'watch': {
         'quality': '1080p',
@@ -27,7 +31,7 @@ DEFAULT_CONFIG = {
         'provider': 'twist.moe',
     },
     "siteconfig": {
-        "nineanime": {
+        'nineanime': {
             "server": "mp4upload",
         },
         'anistream.xyz': {
@@ -61,14 +65,68 @@ DEFAULT_CONFIG = {
             "version": "subbed",
             "server": "trollvid",
         },
-        'watchmovie': {
+        'animekisa': {
             "server": "gcloud",
-            "fallback_servers": ["fembed","yourupload","mp4upload"],
+            "fallback_servers": ["mp4upload","vidstream"]
+        },
+        
+        'watchmovie': {
+            "servers": ["vidstream",'gcloud','yourupload','hydrax']
         },
         'animeflix': {
             "server": "AUEngine",
             "fallback_servers": ["FastStream"],
             "version": "sub",
+        },
+        'dubbedanime': {
+            "servers": ["vidstream","mp4upload","trollvid"],
+            "version": "dubbed",
+        },
+        'animedaisuki': {
+            "servers": ["official"]
+        },
+        'nyaa': {
+            "filter": "Trusted only",
+            "category": "English-translated"
+        },
+        'vidstream': {
+            "servers": ["vidstream","vidstream_bk","gcloud","mp4upload","cloud9","hydrax","mixdrop"]
+        },
+        'justdubs': {
+            "servers": ["mp4upload","gcloud"]
+        },
+        'kisscartoon': {
+            "servers": [
+                "mpserver",
+                "yuserver",
+                "oserver",
+                "xserver",
+                "ptserver"
+            ]
+        },
+        'animevibe': {
+            "servers": [
+                "vidstream",
+                "3rdparty",
+                "mp4upload",
+                "hydrax",
+                "gcloud",
+                "fembed"
+            ]
+        },
+        'yify': {
+            "servers": [
+                "vidstream",
+                "yify"
+            ]
+        },
+        'vostfree': {
+            'server': 'sibnet'
+        },
+        'voiranime': {
+            "servers":[
+                "gounlimited"
+            ]
         },
     }
 }
@@ -125,7 +183,10 @@ class _Config:
 
     def _read_config(self):
         with open(self.CONFIG_FILE, 'r') as configfile:
-            conf = json.load(configfile)
+            try:
+                conf = json.load(configfile)
+            except:
+                raise SyntaxWarning('The config file is not correctly formatted')
         return conf
 
     def _write_default_config(self):

@@ -20,7 +20,7 @@ class AnimeOut(Anime, sitename='animeout'):
             return(search_results)
         def _scrape_episodes(self):
             soup = helpers.soupify(helpers.get(self.url))
-            elements = soup.select('div.article-content > p > a')
+            elements = soup.select('article.post a')
 
             episode_links = []
             for a in elements:
@@ -36,6 +36,6 @@ class AnimeOutEpisode(AnimeEpisode, sitename='animeout'):
         def _get_sources(self):
             soup = helpers.soupify(helpers.get(self.url))
             link = soup.select('div.Center > p > h2 > a')[0].get('href')
-            script = helpers.soupify(helpers.get(link)).select('script')[2].text
-            url = re.search(r'http[^"]*',script).group()
+            script = helpers.soupify(helpers.get(link)).select('script')[2]
+            url = re.search(r'http[^"]*',str(script)).group()
             return [('no_extractor', url,)]

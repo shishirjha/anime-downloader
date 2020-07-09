@@ -2,7 +2,6 @@ from importlib import import_module
 
 ALL_ANIME_SITES = [
     # ('filename', 'sitename', 'classname')
-    ('nineanime', '9anime', 'NineAnime'),
     ('gogoanime', 'gogoanime', 'GogoAnime'),
     ('kissanime', 'kissanime', 'KissAnime'),
     ('kisscartoon', 'kisscartoon', 'KissCartoon'),
@@ -21,6 +20,16 @@ ALL_ANIME_SITES = [
     ('ryuanime', 'ryuanime', 'RyuAnime'),
     ('erairaws', 'erai-raws', 'EraiRaws'),
     ('watchmovie','watchmovie','WatchMovie'),
+    ('animekisa','animekisa','AnimeKisa'),
+    ('nyaa','nyaa','Nyaa'),
+    ('animedaisuki','animedaisuki','Animedaisuki'),
+    ('justdubs','justdubs','JustDubs'),
+    ('animevibe','animevibe','AnimeVibe'),  
+    ('animefree','animefree','AnimeFree'),
+    ('yify','yify','Yify'),
+    ('vostfree', 'vostfree', 'VostFree'),
+    ('voiranime','voiranime','VoirAnime'),
+    ('vidstream','vidstream','VidStream')
 ]
 
 
