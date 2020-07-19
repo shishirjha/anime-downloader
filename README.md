@@ -42,9 +42,18 @@ Yeah. Me too! That's why this tool exists.
 - Download using external downloader ([aria2](https://aria2.github.io/) recommended).
 - Configurable using `config.json`. See [documentation](https://anime-downlader.readthedocs.io/en/latest/usage/config.html).
 
+## Supported Operating Systems:
+- Windows
+- Mac OS
+- Linux
+- Android
+- iOS (requires Jailbreak and some tinkering)
+  * Instructions for Mobile Operating Systems can be found in the [Installation Documentation Page](https://anime-downlader.readthedocs.io/en/latest/usage/installation.html)
+
 ## Supported Sites
 **Details about the sites can be found in [FAQ](https://github.com/vn-ki/anime-downloader/wiki/FAQ)**
 - Anistream
+- AnimeOnline360
 - Animeflix
 - Animefreak
 - Gogoanime
@@ -69,10 +78,15 @@ Yeah. Me too! That's why this tool exists.
 - Vostfree
 - Voiranime
 - Vidstream
+- Animixplay
 - Animepahe - requires Node.js
 - twist.moe - requires Node.js
 - Kissanime - requires Selenium
 - Kisscartoon - requires Selenium
+
+Sites That require Selenium **DO NOT** and **WILL NOT** work on mobile operating systems
+
+Twist.moe **DOES NOT** work and **WILL NOT** work on iOS, a Python Module that is required for twist.moe is not supported on iOS and cannot be installed
 
 ## Installation
 
@@ -81,7 +95,7 @@ Yeah. Me too! That's why this tool exists.
 If you have trouble installing, see extended installation instructions [here](https://anime-downlader.readthedocs.io/en/latest/usage/installation.html) or join the [discord server](https://discord.gg/Qn2nWGm) for help.
 
 **Note**:
-- For cloudflare scraping [cfscrape](https://github.com/Anorov/cloudflare-scrape) is used. It depends on [`node-js`](https://nodejs.org/en/). So if you want to use cloudflare, make sure you have [node-js](https://nodejs.org/en/) installed.
+- For cloudflare scraping either [cfscrape](https://github.com/Anorov/cloudflare-scrape) or [selenium](https://www.selenium.dev/) is used. [Cfscrape](https://github.com/Anorov/cloudflare-scrape) depends on [`node-js`](https://nodejs.org/en/) and [selenium](https://www.selenium.dev/) utilizes an automated invisible instance of a browser (chrome/firefox). So, if you want to use cloudflare enabled sites, make sure you have [node-js](https://nodejs.org/en/) and a [webdriver](https://www.selenium.dev/selenium/docs/api/py/index.html#drivers) installed.
 - You might have to use pip3 depending on your system
 
 ## Usage
@@ -105,6 +119,7 @@ See [development instructions](https://anime-downlader.readthedocs.io/en/latest/
 ## Related Projects
 
 - [adl](https://github.com/RaitaroH/adl) - a command-line tool for watching anime that makes use of anime-downloader.
+- [Cloudstream](https://github.com/LagradOst/CloudStream-2) - mobile gui for pirating anime and movies.
 
 ---
 

@@ -2,6 +2,7 @@ from importlib import import_module
 
 ALL_ANIME_SITES = [
     # ('filename', 'sitename', 'classname')
+    ('animeonline','animeonline360','AnimeOnline'),
     ('gogoanime', 'gogoanime', 'GogoAnime'),
     ('kissanime', 'kissanime', 'KissAnime'),
     ('kisscartoon', 'kisscartoon', 'KissCartoon'),
@@ -29,9 +30,10 @@ ALL_ANIME_SITES = [
     ('yify','yify','Yify'),
     ('vostfree', 'vostfree', 'VostFree'),
     ('voiranime','voiranime','VoirAnime'),
-    ('vidstream','vidstream','VidStream')
+    ('vidstream','vidstream','VidStream'),
+    ('animixplay','animixplay','AniMixPlay'),
+    ('animefrenzy','animefrenzy','AnimeFrenzy')
 ]
-
 
 def get_anime_class(url):
     """
