@@ -267,6 +267,8 @@ class AnimeEpisode:
         Episode number/title of the episode
     pretty_title: string
         Pretty title of episode in format <animename>-<ep_no>
+    headers: dict
+        Headers the downloader should use, used to bypass downloading restrictions.
     """
     QUALITIES = []
     title = ''
@@ -274,13 +276,13 @@ class AnimeEpisode:
     subclasses = {}
 
     def __init__(self, url, parent: Anime = None, ep_no=None):
-
         self.ep_no = ep_no
         self.url = url
         self.quality = parent.quality
         self.QUALITIES = parent.QUALITIES
         self._parent = parent
         self._sources = None
+        self.headers = {}
         self.pretty_title = '{}-{}'.format(self._parent.title, self.ep_no)
 
         logger.debug("Extracting stream info of id: {}".format(self.url))
@@ -340,7 +342,7 @@ class AnimeEpisode:
         except IndexError:
             raise NotFoundError("No episode sources found.")
 
-        ext = get_extractor(sitename)(url, quality=self.quality)
+        ext = get_extractor(sitename)(url, quality=self.quality, headers=self.headers)
         self._sources[index] = ext
 
         return ext
@@ -383,7 +385,7 @@ class AnimeEpisode:
         logger.debug('Data : {}'.format(data))
 
         #Sorts the dicts by preferred server in config
-        sorted_by_server = sorted(data, key=lambda x: servers.index(x['server']))
+        sorted_by_server = sorted(data, key=lambda x: servers.index(x['server']) if x['server'] in servers else len(data))
 
         #Sorts the above by preferred language 
         #resulting in a list with the dicts sorted by language and server
@@ -453,13 +455,16 @@ class SearchResult:
         URL for the poster of the anime.
     meta: dict
         Additional metadata regarding the anime.
+    meta_info: dict
+        Metadata regarding the anime. Not shown in the results, used to match with MAL
     """
 
-    def __init__(self, title, url, poster='', meta=''):
+    def __init__(self, title, url, poster='', meta='', meta_info={}):
         self.title = title
         self.url = url
         self.poster = poster
         self.meta = meta
+        self.meta_info = meta_info
 
     def __repr__(self):
         return '<SearchResult Title: {} URL: {}>'.format(self.title, self.url)
