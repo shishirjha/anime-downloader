@@ -1,0 +1,11 @@
+
+anime-downloader
+
+twine 
+sphinx 
+sphinx-rtd-theme 
+radon 
+flake8 
+httpretty 
+pylint 
+python-language-server
